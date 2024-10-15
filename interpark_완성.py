@@ -50,14 +50,14 @@ items = driver.find_elements(By.CSS_SELECTOR, "ul.boxList > li")
 titles = []
 prices = []
 
-# xpath 있는지 확인. 
-def isExistXpath(xpath):
-    try:
-        driver.find_element(By.XPATH, xpath)
-        return True
-    except:
-        return False
-index = 1
+# xpath 있는지 확인. //2024.10.15 수정... 쓸데없는 오지랖이었음
+# def isExistXpath(xpath):
+#     try:
+#         driver.find_element(By.XPATH, xpath)
+#         return True
+#     except:
+#         return False
+# index = 1
 
 
 while True:
@@ -69,14 +69,8 @@ while True:
         title_xpath = f'//*[@id="boxList"]/li[{index}]/div/div[2]/div[2]/div[1]/a/h5'
         title = driver.find_element(By.XPATH, title_xpath).text
 
-        # 가격 가져오기 - 할인 여부 확인 후 분기점
-        discount_price_xpath = f'//*[@id="boxList"]/li[{index}]/div/div[2]/div[2]/div[2]/div/p[2]/strong'
         base_price_xpath = f'//*[@id="boxList"]/li[{index}]/div/div[2]/div[2]/div[2]/div/p/strong'
-
-        if isExistXpath(discount_price_xpath):
-            price = driver.find_element(By.XPATH, discount_price_xpath).text
-        else:
-            price = driver.find_element(By.XPATH, base_price_xpath).text
+        price = driver.find_element(By.XPATH, base_price_xpath).text
 
         print(title, "\t", price)
         titles.append(title)
